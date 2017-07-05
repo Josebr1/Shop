@@ -44,3 +44,29 @@
 main{
     flex: 1 1 auto
 }
+
+/* Home - Index */
+
+.background-home-index{
+    background-color: #ff8f00;
+    min-width: 80%;
+}
+
+.icon-application{
+    float: left;
+}
+
+.title-application{
+        color: white;
+    margin-left: 2em;
+}
+
+.button-center{
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.space{
+    height: 5em;
+}

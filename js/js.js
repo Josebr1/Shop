@@ -97,6 +97,31 @@ $("#passwordRefresh").on("keyup", function (e) {
     }
 });
 
+$("#formValidate").validate({
+    rules: {
+        formemail: {
+            required: true,
+            email:true
+        }
+    },
+    //For custom messages
+    messages: {
+        uname:{
+            required: "Enter a username",
+            minlength: "Enter at least 5 characters"
+        },
+        curl: "Enter your website",
+    },
+    errorElement : 'div',
+    /*errorPlacement: function(error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+            $(placement).append(error)
+        } else {
+            error.insertAfter(element);
+        }
+    }*/
+});
 
 
 
