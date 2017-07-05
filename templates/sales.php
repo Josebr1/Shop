@@ -1,3 +1,7 @@
+<?php
+session_start();
+require '../connection.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +21,7 @@
 <body style="background-color: #424242">
 
 <?php
-session_start();
-if (!isset($_SESSION["usuario"])) {
+if(!isLoggedIn()){
     header("Location:../index.php");#retorna para a tela main
 }
 ?>

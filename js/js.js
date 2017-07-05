@@ -123,5 +123,12 @@ $("#formValidate").validate({
     }*/
 });
 
+$(document).ready(function(){
+    $('#phone').mask('(00) 0000-00009');
+});
+
+$(document).ready(function(){
+    $('#phone').mask('(00) 0000-0000'); //Telefone
+});
 
 

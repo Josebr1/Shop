@@ -1,3 +1,8 @@
+<?php
+session_start();
+require '../connection.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,16 +20,15 @@
 <body>
 
 <?php
-session_start();
-if(!isset($_SESSION["usuario"])){
+if(!isLoggedIn()){
     header("Location:../index.php");#retorna para a tela main
-} 
+}
 ?>
 
 <div class="page-flexbox-wrapper">
 <header>
     <ul id="dropdown1" class="dropdown-content">
-        <li><a href="../index.php" ">Sair</a></li>
+        <li><a href="logout.php" ">Sair</a></li>
     </ul>
     <nav class="nav-extended grey darken-3">
         <div class="nav-content" style="margin-left: 20px;">

@@ -1,3 +1,7 @@
+<?php
+session_start();
+require '../connection.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +19,7 @@
 
 <body class="grey lighten-2" style="min-width: 50%">
 <?php
-session_start();
-if (!isset($_SESSION["usuario"])) {
+if(!isLoggedIn()){
     header("Location:../index.php");#retorna para a tela main
 }
 ?>
