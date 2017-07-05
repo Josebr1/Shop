@@ -41,32 +41,47 @@
     flex-direction: column;
 }
 
-main{
+main {
     flex: 1 1 auto
 }
 
 /* Home - Index */
 
-.background-home-index{
+.background-home-index {
     background-color: #ff8f00;
     min-width: 80%;
 }
 
-.icon-application{
+.icon-application {
     float: left;
 }
 
-.title-application{
-        color: white;
+.title-application {
+    color: white;
     margin-left: 2em;
 }
 
-.button-center{
+.button-center {
     min-width: 100px;
     display: flex;
     justify-content: center;
 }
 
-.space{
+.space {
     height: 5em;
+}
+
+/* Sign-In */
+
+.container-card {
+    width: 40%;
+    height: auto;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-div {
+    margin: auto;
+    display: block;
 }
