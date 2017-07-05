@@ -15,76 +15,87 @@
 
 <body>
 
-<?php
-session_start();
-session_destroy();
-?>
-
 <div class="container">
 
+    <div class="row">
+        <div class="col s12 m6 offset-m3" style="margin-top: 2em;">
 
-    <div class="container-card">
+            <img src="images/icon-circle-application.png" style="width: 20%; height: auto;" class="center-div">
+            <h5 align="center">Entrar</h5>
+            <p align="center">Use sua conta de login</p>
 
-        <img src="images/icon-circle-application.png" style="width: 20%; height: auto;" class="center-div">
-<h5 align="center">Entrar</h5>
-        <p align="center">Use sua conta de login</p>
-
-        <form class="col s12" id="formValidate" method="post" action="sign-in.php">
-            <div class="row">
-                <div class="input-field black-text col s12">
-                    <input id="email" type="email" name="email" class="validate" required value="
+            <form class="col s12" id="formValidate" method="post" action="sign-in.php">
+                <div class="row">
+                    <div class="input-field black-text col s12">
+                        <input id="email" type="email" name="email" class="validate" required value="
                                     <?php if (!empty($_GET)) {
-                        echo $_GET['email'];
-                    } else {
-                        echo "";
-                    } ?>
+                            echo $_GET['email'];
+                        } else {
+                            echo "";
+                        } ?>
                                     ">
-                    <label for="email" data-error="E-Mail incorreto" data-success="">E-mail</label>
+                        <label for="email" data-error="E-Mail incorreto" data-success="">E-mail</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field black-text col s12">
-                    <input id="password" type="password" name="password" class="validate" required>
-                    <label for="password" data-error="Senha incorreta" data-success="">Senha</label>
+                <div class="row">
+                    <div class="input-field black-text col s12">
+                        <input id="password" type="password" name="password" class="validate" required>
+                        <label for="password" data-error="Senha incorreta" data-success="">Senha</label>
+                    </div>
                 </div>
-            </div>
-          <button class="waves-effect waves-light btn-large button-center orange darken-4" style="width: 100%;" type="submit">Próximo</button>
+                <button class="waves-effect waves-light btn-large button-center orange darken-4" style="width: 100%;"
+                        type="submit">Próximo
+                </button>
 
-            <p>Não tem uma conta? <a href="sign-up.php">Crie uma!</a></p>
+                <p>Não tem uma conta? <a href="sign-up.php">Crie uma!</a></p>
 
-        </form>
+            </form>
+        </div>
     </div>
     <?php
 
     if (!empty($_POST)) {
 
 
-        try{
+        try {
             include("connection.php");
             $email = $_POST["email"];
-            $password = md5($_POST["password"]);
+            $password = make_hash($_POST["password"]);
+
+            echo $password;
 
             $query = null;
             $result = null;
             $data = null;
 
-            $query = "SELECT * FROM administrador WHERE email = '$email' AND password = '$password'";
+            $query = "SELECT * FROM administrador WHERE email = :email AND password = :password";
+            $result = db_connect()->prepare($query);
+            $result->bindParam("email", $email);
+            $result->bindParam("password", $password);
 
-            $result = $connection->prepare($query);
-            if ($result->execute()) {
-                if ($result->rowCount() > 0) {
-                    $data = $result->fetch(PDO::FETCH_OBJ);
-                    session_start("usuario");
-                    session_cache_expire(10);
-                    $_SESSION["user_administrator"] = "" . $data->id_administrador;
-                    $_SESSION["email"] = "" . $email;
-                    header("Location: templates/dashboard.php");#redireciona para o menu principal
-                } else {
-                    echo "<script>if(confirm('Email ou Senha incorretos')) document.location = 'sign-in.php?email=$email';</script>";
-                }
+            $result->execute();
+
+            echo $query;
+            echo md5(123456789);
+
+
+            echo $result->rowCount();
+            if ($result->rowCount() > 0) {
+
+                #echo "Autenticado com sucesso";
+                $data = $result->fetch(PDO::FETCH_OBJ);
+
+                session_start();
+                $_SESSION['logged_in'] = true;
+                $_SESSION['user_id'] =$data->id_administrador;
+                $_SESSION['user_name'] = $data->name;
+
+                header("Location: templates/dashboard.php");#redireciona para o menu principal
+            } else {
+                echo "<script>if(confirm('Email ou Senha incorretos')) document.location = 'sign-in.php?email=$email';</script>";
             }
-        }catch (Exception $e)
-        {
+
+        } catch (Exception $e) {
             echo "<script>if(confirm('Email ou Senha incorretos')) document.location = 'sign-in.php?email=$email';</script>";
         }
     }
