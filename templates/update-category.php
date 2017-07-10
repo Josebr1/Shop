@@ -73,7 +73,7 @@ if(!isLoggedIn()){
                                     $id = $_GET['idCategory'];
 
                                     //$headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/category/' . $id, $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/category/' . $id, $headers = array(), $parameters = null);
                                     $json = json_decode($response->raw_body);
 
                                     foreach ($json as $e) {
@@ -138,7 +138,7 @@ if(!isLoggedIn()){
                 if (($name != null && $description != null)) {
                     $path_image = null;
                     if ($_FILES['foto']['error'] == 0) {
-                        $upload = new Upload($_FILES['foto'], 1000, 800, "../uploads/");
+                        $upload = new Upload($_FILES['foto'], 400, 400, "../uploads/");
                         $path_image = 'uploads/' . $upload->salvar();
                     }
 
@@ -146,9 +146,9 @@ if(!isLoggedIn()){
                     $data = array('name' => $name, 'description' => $description, 'icon' => $path_image);
 
                     $body = Unirest\Request\Body::json($data);
-                    echo $body;
+                   // echo $body;
 
-                    $response = Unirest\Request::post('http://localhost:8000/category/update/' . $id_category, null, $data);
+                    $response = Unirest\Request::post('http://web-api.files-app.ga/public/category/update/' . $id_category, null, $data);
 
                     if($response->code == 200){
                         echo "<script>

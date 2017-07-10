@@ -17,7 +17,7 @@ require '../connection.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body style="background-color: #424242">
+<body>
 
 <?php
 if(!isLoggedIn()){
@@ -41,16 +41,17 @@ if(!isLoggedIn()){
         <form class="col s12" action="register-products.php" method="post" enctype='multipart/form-data'>
             <div class="row">
                 <div class="col s12 m6 offset-m3">
-                    <div class="card white darken-1">
-                        <div class="card-content white-text center-align">
-                            <div class="row">
-                                <div class="col s2">
-                                    <img src="../images/icon-product.png">
-                                </div>
-                                <div class="col s6 offset-m3">
-                                    <span class='card-title black-text'><h3>Produto</h3></span>
-                                </div>
-                            </div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="../images/icon-product.png">
+                                    </td>
+                                    <td>
+                                        <span class='card-title black-text'><h3>Produto</h3></span>
+                                    </td>
+                                </tr>
+                            </table>
+
                             <div class="row">
                                 <div class="row">
                                     <div class="input-field black-text col s12">
@@ -90,7 +91,7 @@ if(!isLoggedIn()){
 
                                 $headers = array();
 
-                                $response = Unirest\Request::get('http://localhost:8000/category', $headers = array(), $parameters = null);
+                                $response = Unirest\Request::get('http://web-api.files-app.ga/public/category', $headers = array(), $parameters = null);
 
                                 $json = json_decode($response->raw_body);
                                 echo "<div class='row'>";
@@ -103,8 +104,7 @@ if(!isLoggedIn()){
 
                                 ?>
                             </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="fixed-action-btn">
@@ -131,7 +131,7 @@ if(!isLoggedIn()){
                 $path_image = null;
 
                 if ($_FILES['foto']['error'] == 0) {
-                    $upload = new Upload($_FILES['foto'], 1000, 800, "../uploads/");
+                    $upload = new Upload($_FILES['foto'], 400, 400, "../uploads/");
                     $path_image = 'uploads/' . $upload->salvar();
                 }
 
@@ -141,10 +141,8 @@ if(!isLoggedIn()){
                 $body = Unirest\Request\Body::json($data);
                 echo $body;
 
-                $response = Unirest\Request::post('http://localhost:8000/product', null, $data);
+                $response = Unirest\Request::post('http://web-api.files-app.ga/public/product', null, $data);
 
-                echo $response->code;
-                echo $response->body;
 
                 if ($response->code == 200) {
                     echo "<script>

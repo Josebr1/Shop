@@ -51,7 +51,7 @@ if(!isLoggedIn()){
                         <?php
                         require_once '../vendor/autoload.php';
 
-                        $response = Unirest\Request::get('http://localhost:8000/category', $headers = array(), $parameters = null);
+                        $response = Unirest\Request::get('http://web-api.files-app.ga/public/category', $headers = array(), $parameters = null);
                         $json = json_decode($response->raw_body);
 
                         foreach ($json as $e) {
@@ -70,32 +70,33 @@ if(!isLoggedIn()){
             if (!empty($_POST)) {
                 $category = $_POST['category'];
 
-                $response = Unirest\Request::get('http://localhost:8000/product/category/' . $category, $headers = array(), $parameters = null);
+                $response = Unirest\Request::get('http://web-api.files-app.ga/public/product/category/' . $category, $headers = array(), $parameters = null);
                 $json = json_decode($response->raw_body);
-                if ($json == null) {
+                if ($response->code == 404) {
                     echo "
                              <div class='col s12 m6 offset-m3'>
                                 <div class='card horizontal'>
                                     <div class='card-stacked'>
                                         <div class='card-content'>
-                                            <h4>Não existe itens cadastrados nessa categoria</h4>
+                                             <p class='center-align'>Não existem itens cadastrados</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             ";
                 } else {
+                    echo("<div class='row'>");
                     foreach ($json as $e) {
                         echo "
-                             <div class='col s12 m6 offset-m3'>
-                                <div class='card horizontal'>
+                             <div class='grid-example col s12 m4'>
+                                <div class='card medium'>
                                     <div class='card-image'>
-                                          <img src='http://localhost/Shop/$e->product_image' style='width: 10em; height: 10em'>
+                                          <img src='http://site.files-app.ga/$e->product_image'>
                                     </div>
                                     <div class='card-stacked'>
                                         <div class='card-content'>
-                                            <h4>$e->name</h4>
-                                            <p>$e->description</p>
+                                            <strong><i><p>$e->name</p></i></strong>
+                                            <!--p>$e->description</p-->
                                             <p><b>R$ $e->price</b></p>
                                         </div>
                                         <div class='card-action'>
@@ -106,6 +107,7 @@ if(!isLoggedIn()){
                             </div>
                             ";
                     }
+                    echo "</div>";
                 }
             }
             ?>

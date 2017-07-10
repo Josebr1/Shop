@@ -18,7 +18,7 @@ require '../connection.php';
 
 <body>
 <?php
-if(!isLoggedIn()){
+if (!isLoggedIn()) {
     header("Location:../index.php");#retorna para a tela main
 }
 ?>
@@ -39,42 +39,47 @@ if(!isLoggedIn()){
                 <?php
                 require_once '../vendor/autoload.php';
 
-                $response = Unirest\Request::get('http://localhost:8000/category', $headers = array(), $parameters = null);
+                $response = Unirest\Request::get('http://web-api.files-app.ga/public/category', $headers = array(), $parameters = null);
+
                 $json = json_decode($response->raw_body);
 
-                if ($json == null) {
+
+                if ($response->code == 404 || $json == null) {
                     echo "
                              <div class='col s12 m6 offset-m3'>
                                 <div class='card horizontal'>
                                     <div class='card-stacked'>
                                         <div class='card-content'>
-                                            <h4>Não existe itens cadastrados</h4>
+                                            <p class='center-align'>Não existem itens cadastrados</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             ";
                 } else {
+                    echo("<div class='row'>");
                     foreach ($json as $e) {
                         echo "
-                             <div class='col s12 m6 offset-m3'>
-                                <div class='card horizontal'>
-                                    <div class='card-image'>
-                                        <img src='http://localhost/Shop/$e->icon' style='width: 10em; height: 10em'>
-                                    </div>
-                                    <div class='card-stacked'>
-                                        <div class='card-content'>
-                                            <h4>$e->name</h4>
-                                            <p>$e->description</p>
+
+                        <div class='grid-example col s12 m4'>
+                            <div class='card small'>
+                                        <div class='card-image'>
+                                            <img src='http://site.files-app.ga/$e->icon' style='width: 100%; height: auto;'>
                                         </div>
-                                        <div class='card-action'>
-                                            <a href='update-category.php?idCategory=$e->id_category'>EDITAR</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                     <div class='card-stacked'>
+                                            <div class='card-content'>
+                                                  <span>$e->name</span>
+                                            </div>
+                                            <div class='card-action'>
+                                              <a href='update-category.php?idCategory=$e->id_category'>EDITAR</a>
+                                            </div>
+                                     </div>
                             </div>
-                            ";
+                        </div>
+                        
+                        ";
                     }
+                    echo "</div>";
                 }
                 ?>
             </div>

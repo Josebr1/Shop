@@ -67,7 +67,7 @@ if(!isLoggedIn()){
 
                                         require_once '../vendor/autoload.php';
                                         $headers = array();
-                                        $response = Unirest\Request::get('http://localhost:8000/order/sale/month', $headers = array(), $parameters = null);
+                                        $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/sale/month', $headers = array(), $parameters = null);
 
                                         $json = json_decode($response->raw_body);
 
@@ -97,7 +97,7 @@ if(!isLoggedIn()){
 
                                         require_once '../vendor/autoload.php';
                                         $headers = array();
-                                        $response = Unirest\Request::get('http://localhost:8000/order/sale/day', $headers = array(), $parameters = null);
+                                        $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/sale/day', $headers = array(), $parameters = null);
 
                                         $json = json_decode($response->raw_body);
 

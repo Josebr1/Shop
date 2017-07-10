@@ -15,11 +15,12 @@ require '../connection.php';
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 
-<body style="background-color: #424242">
+<body>
 <?php
-if(!isLoggedIn()){
+if (!isLoggedIn()) {
     header("Location:../index.php");#retorna para a tela main
 }
 ?>
@@ -41,42 +42,40 @@ if(!isLoggedIn()){
     <form class="col s12" action="register-category.php" method="post" enctype='multipart/form-data'>
         <div class="row">
             <div class="col s12 m6 offset-m3">
-                <div class="card white darken-1">
-                    <div class="card-content white-text center-align">
-                        <div class="row">
-                            <div class="col s2">
-                                <img src="../images/icon-category.png">
-                            </div>
-                            <div class="col s6 offset-m3">
-                                <span class='card-title black-text'><h3>Categoria</h3></span>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class='row'>
-                                <div class='input-field black-text col s12'>
-                                    <input id='name' name='name' type='text' class='validate' required>
-                                    <label for='name' data-error='Nome incorreto' data-success=''>Nome</label>
+                <table>
+                    <tr>
+                        <td>
+                            <img src="../images/icon-category.png">
+                        </td>
+                        <td>
+                            <span class='card-title black-text'><h3>Categoria</h3></span>
+                        </td>
+                    </tr>
+                </table>
+                <div class='row'>
+                    <div class='row'>
+                        <div class='input-field black-text col s12'>
+                            <input id='name' name='name' type='text' class='validate' required>
+                            <label for='name' data-error='Nome incorreto' data-success=''>Nome</label>
 
-                                </div>
-                            </div>
-                            <div class='row'>
-                                <div class='input-field black-text col s12'>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='input-field black-text col s12'>
                                             <textarea id='description' name='description' class='materialize-textarea'
                                                       maxlength='240' required></textarea>
-                                    <label for='description'>Descrição</label>
-                                </div>
+                            <label for='description'>Descrição</label>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='file-field input-field'>
+                            <div class='btn amber darken-4'>
+                                <span>Imagem</span>
+                                <input type='file' name='foto' id='foto' accept='.gif,.jpg,.jpeg,.png' required>
                             </div>
-                            <div class='row'>
-                                <div class='file-field input-field'>
-                                    <div class='btn amber darken-4'>
-                                        <span>Imagem</span>
-                                        <input type='file' name='foto' id='foto' accept='.gif,.jpg,.jpeg,.png' required>
-                                    </div>
-                                    <div class='file-path-wrapper'>
-                                        <input class='file-path validate black-text' type='text'
-                                               placeholder='Carregar um arquivos' name='inputimagem'>
-                                    </div>
-                                </div>
+                            <div class='file-path-wrapper'>
+                                <input class='file-path validate black-text' type='text'
+                                       placeholder='Carregar um arquivos' name='inputimagem'>
                             </div>
                         </div>
                     </div>
@@ -90,6 +89,8 @@ if(!isLoggedIn()){
         </div>
     </form>
 
+    <!-- -->
+
     <?php
     use Unirest\Request;
 
@@ -98,13 +99,14 @@ if(!isLoggedIn()){
     if (!empty($_POST)) {
         $name = $_POST['name'];
         $description = $_POST['description'];
+        //$image = $_FILES['foto'];
 
         if (($name != null && $description != null && $_FILES['foto'] != null)) {
 
             $path_image = null;
 
             if ($_FILES['foto']['error'] == 0) {
-                $upload = new Upload($_FILES['foto'], 1000, 800, "../uploads/");
+                $upload = new Upload($_FILES['foto'], 400, 400, "../uploads/");
                 $path_image = 'uploads/' . $upload->salvar();
             }
 
@@ -112,8 +114,8 @@ if(!isLoggedIn()){
             $data = array('name' => $name, 'description' => $description, 'icon' => $path_image);
 
             $body = Unirest\Request\Body::json($data);
-    
-            $response = Unirest\Request::post('http://localhost:8000/category', null, $data);
+
+            $response = Unirest\Request::post('http://web-api.files-app.ga/public/category', null, $data);
 
             if ($response->code == 200) {
                 echo "<script>
@@ -132,6 +134,9 @@ if(!isLoggedIn()){
         }
     }
     ?>
+
+    <!-- -->
+
 </div>
 
 <footer class="page-footer grey darken-4" style="margin-bottom: 0">

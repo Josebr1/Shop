@@ -61,7 +61,7 @@ if(!isLoggedIn()){
                                             if (!empty($_GET)) {
                                                 $id = $_GET['idCategory'];
                                                 $headers = array();
-                                                $response = Unirest\Request::get('http://localhost:8000/order/' . $id, $headers = array(), $parameters = null);
+                                                $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/' . $id, $headers = array(), $parameters = null);
                                                 $json = json_decode($response->raw_body);
 
                                                 if ($json != null) {
@@ -123,7 +123,7 @@ if(!isLoggedIn()){
                                             if (!empty($_GET)) {
                                                 $id = $_GET['idCategory'];
                                                 $headers = array();
-                                                $response = Unirest\Request::get('http://localhost:8000/order/products/' . $id, $headers = array(), $parameters = null);
+                                                $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/products/' . $id, $headers = array(), $parameters = null);
                                                 $json = json_decode($response->raw_body);
 
                                                 if ($json != null) {
@@ -172,7 +172,7 @@ if(!isLoggedIn()){
                     $headers = array();
                     $data = array('status' => $status);
 
-                    $response = Request::post('http://localhost:8000/order/status/' . $id, array("Accept" => "application/json"), $data);
+                    $response = Request::post('http://web-api.files-app.ga/public/order/status/' . $id, array("Accept" => "application/json"), $data);
                     if ($response->code == 200) {
                         echo "<script>
                                 alert('$response->body');

@@ -13,7 +13,7 @@ require '../connection.php';
     <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="../css/style.css"/>
 
-    <meta http-equiv="refresh" content="10;url=sales-all.php">
+    <meta http-equiv="refresh" content="60;url=sales-all.php">
 
 
     <!--Let browser know website is optimized for mobile-->
@@ -61,7 +61,7 @@ if(!isLoggedIn()){
                                     <?php
                                     require_once '../vendor/autoload.php';
                                     $headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/order/orders/status/1', $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/orders/status/placed', $headers = array(), $parameters = null);
 
                                     $json = json_decode($response->raw_body);
 
@@ -71,7 +71,11 @@ if(!isLoggedIn()){
                                         echo "<div class='collection'>";
                                         foreach ($json as $e) {
                                             echo "
-                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'><b>Endereço:</b><br/>$e->address<br/>
+                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'>
+                                         <b>Nome do comprador:</b><br/>$e->name<br/>
+                                         <b>E-Mail:</b><br/>$e->email<br/>
+                                         <b>Telefone:</b><br/>$e->phone<br/>
+                                         <b>Endereço:</b><br/>$e->address<br/>
                                          <b>Descriçao:</b><br/>$e->description_order <br/>
                                          <b>Status:</b><br/>$e->status</a>
                                         ";
@@ -96,7 +100,7 @@ if(!isLoggedIn()){
                                     <?php
                                     require_once '../vendor/autoload.php';
                                     $headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/order/orders/status/2', $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/orders/status/canceled', $headers = array(), $parameters = null);
 
                                     $json = json_decode($response->raw_body);
 
@@ -106,7 +110,11 @@ if(!isLoggedIn()){
                                         echo "<div class='collection'>";
                                         foreach ($json as $e) {
                                             echo "
-                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'><b>Endereço:</b><br/>$e->address<br/>
+                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'>
+                                         <b>Nome do comprador:</b><br/>$e->name<br/>
+                                         <b>E-Mail:</b><br/>$e->email<br/>
+                                         <b>Telefone:</b><br/>$e->phone<br/>
+                                         <b>Endereço:</b><br/>$e->address<br/>
                                          <b>Descriçao:</b><br/>$e->description_order <br/>
                                          <b>Status:</b><br/>$e->status</a>
                                         ";
@@ -131,7 +139,7 @@ if(!isLoggedIn()){
                                     <?php
                                     require_once '../vendor/autoload.php';
                                     $headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/order/orders/status/3', $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/orders/status/delivery', $headers = array(), $parameters = null);
 
                                     $json = json_decode($response->raw_body);
 
@@ -141,7 +149,11 @@ if(!isLoggedIn()){
                                         echo "<div class='collection'>";
                                         foreach ($json as $e) {
                                             echo "
-                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'><b>Endereço:</b><br/>$e->address<br/>
+                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'>
+                                         <b>Nome do comprador:</b><br/>$e->name<br/>
+                                         <b>E-Mail:</b><br/>$e->email<br/>
+                                         <b>Telefone:</b><br/>$e->phone<br/>
+                                         <b>Endereço:</b><br/>$e->address<br/>
                                          <b>Descriçao:</b><br/>$e->description_order <br/>
                                          <b>Status:</b><br/>$e->status</a>
                                         ";
@@ -166,7 +178,7 @@ if(!isLoggedIn()){
                                     <?php
                                     require_once '../vendor/autoload.php';
                                     $headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/order/orders/status/4', $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/orders/status/completed', $headers = array(), $parameters = null);
 
                                     $json = json_decode($response->raw_body);
 
@@ -176,7 +188,11 @@ if(!isLoggedIn()){
                                         echo "<div class='collection'>";
                                         foreach ($json as $e) {
                                             echo "
-                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'><b>Endereço:</b><br/>$e->address<br/>
+                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'>
+                                         <b>Nome do comprador:</b><br/>$e->name<br/>
+                                         <b>E-Mail:</b><br/>$e->email<br/>
+                                         <b>Telefone:</b><br/>$e->phone<br/>
+                                         <b>Endereço:</b><br/>$e->address<br/>
                                          <b>Descriçao:</b><br/>$e->description_order <br/>
                                          <b>Status:</b><br/>$e->status</a>
                                         ";

@@ -6,14 +6,14 @@ require '../connection.php';
 <html>
 <head>
     <title>Pedidos realizados</title>
-    <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon"/>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="../css/style.css"/>
 
-    <meta http-equiv="refresh" content="5;url=sales.php">
+    <meta http-equiv="refresh" content="60;url=sales.php">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -21,7 +21,7 @@ require '../connection.php';
 <body style="background-color: #424242">
 
 <?php
-if(!isLoggedIn()){
+if (!isLoggedIn()) {
     header("Location:../index.php");#retorna para a tela main
 }
 ?>
@@ -58,7 +58,7 @@ if(!isLoggedIn()){
                                     <?php
                                     require_once '../vendor/autoload.php';
                                     $headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/order/orders/form/PAYMENT_ON_TIME', $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/orders/form/payment/PAYMENT_ON_TIME', $headers = array(), $parameters = null);
 
                                     $json = json_decode($response->raw_body);
 
@@ -68,7 +68,11 @@ if(!isLoggedIn()){
                                         echo "<div class='collection'>";
                                         foreach ($json as $e) {
                                             echo "
-                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'><b>Endereço:</b><br/>$e->address<br/>
+                                        <a href='order.php?idCategory=$e->id_order' class='collection-item grey-text text-darken-3'>
+                                         <b>Nome do comprador:</b><br/>$e->name<br/>
+                                         <b>E-Mail:</b><br/>$e->email<br/>
+                                         <b>Telefone:</b><br/>$e->phone<br/>
+                                         <b>Endereço:</b><br/>$e->address<br/>
                                          <b>Descriçao:</b><br/>$e->description_order <br/>
                                          <b>Status:</b><br/>$e->status</a>
                                         ";
@@ -93,7 +97,7 @@ if(!isLoggedIn()){
                                     <?php
                                     require_once '../vendor/autoload.php';
                                     $headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/order/orders/form/CREDIT_ONLINE', $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/orders/form/payment/CREDIT_ONLINE', $headers = array(), $parameters = null);
 
                                     $json = json_decode($response->raw_body);
 
@@ -103,7 +107,11 @@ if(!isLoggedIn()){
                                         echo "<div class='collection'>";
                                         foreach ($json as $e) {
                                             echo "
-                                        <a href='order.php?idCategory=$e->id_order' class='collection-item'><b>Endereço:</b><br/>$e->address<br/>
+                                         <a href='order.php?idCategory=$e->id_order' class='collection-item'>
+                                         <b>Nome do comprador:</b><br/>$e->name<br/>
+                                         <b>E-Mail:</b><br/>$e->email<br/>
+                                         <b>Telefone:</b><br/>$e->phone<br/>
+                                         <b>Endereço:</b><br/>$e->address<br/>
                                          <b>Descriçao:</b><br/>$e->description_order <br/>
                                          <b>Status:</b><br/>$e->status</a>
                                         ";

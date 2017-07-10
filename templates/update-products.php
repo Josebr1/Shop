@@ -70,7 +70,7 @@ if(!isLoggedIn()){
                                     $id = $_GET['idProduct'];
 
                                     //$headers = array();
-                                    $response = Unirest\Request::get('http://localhost:8000/product/' . $id, $headers = array(), $parameters = null);
+                                    $response = Unirest\Request::get('http://web-api.files-app.ga/public/product/' . $id, $headers = array(), $parameters = null);
                                     $json = json_decode($response->raw_body);
 
                                     foreach ($json as $e) {
@@ -122,7 +122,7 @@ if(!isLoggedIn()){
 
                                 $headers = array();
 
-                                $response = Unirest\Request::get('http://localhost:8000/category', $headers = array(), $parameters = null);
+                                $response = Unirest\Request::get('http://web-api.files-app.ga/public/category', $headers = array(), $parameters = null);
 
                                 $json = json_decode($response->raw_body);
                                 echo "<div class='row'>";
@@ -169,7 +169,7 @@ if (!empty($_POST)) {
         $path_image = null;
 
         if ($_FILES['foto']['error'] == 0) {
-            $upload = new Upload($_FILES['foto'], 1000, 800, "../uploads/");
+            $upload = new Upload($_FILES['foto'], 400, 400, "../uploads/");
             $path_image = 'uploads/' . $upload->salvar();
         }
 
@@ -178,7 +178,7 @@ if (!empty($_POST)) {
 
         $body = Unirest\Request\Body::json($data);
 
-        $response = Unirest\Request::post('http://localhost:8000/product/update/' . $id_product, null, $data);
+        $response = Unirest\Request::post('http://web-api.files-app.ga/public/product/update/' . $id_product, null, $data);
 
         if ($response->code == 200) {
             echo "<script>
