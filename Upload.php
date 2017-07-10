@@ -44,7 +44,9 @@
 			//redimencionar a imagem
 
 			//cria uma nova imagem com o novo tamanho
-			$novaimagem = imagecreatetruecolor($novaLarg, $novaAlt);
+            $novaimagem = imagecreatetruecolor($novaLarg, $novaAlt);
+            imagealphablending( $novaimagem, false );
+            imagesavealpha( $novaimagem, true );
 
 			switch ($tipo){
 				case 1:	// gif
