@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Entrar</title>
     <link rel="shortcut icon" href="images/icon-panel-login.png" type="image/x-icon"/>
@@ -16,7 +16,6 @@
 <body>
 
 <div class="container">
-
     <div class="row">
         <div class="col s12 m6 offset-m3" style="margin-top: 2em;">
 
@@ -46,23 +45,16 @@
                 <button class="waves-effect waves-light btn-large button-center orange darken-4" style="width: 100%;"
                         type="submit">Próximo
                 </button>
-
                 <p>Não tem uma conta? <a href="sign-up.php">Crie uma!</a></p>
-
             </form>
         </div>
     </div>
     <?php
-
     if (!empty($_POST)) {
-
-
         try {
             include("connection.php");
             $email = $_POST["email"];
             $password = make_hash($_POST["password"]);
-
-            echo $password;
 
             $query = null;
             $result = null;
@@ -75,17 +67,12 @@
 
             $result->execute();
 
-            echo $query;
-            echo md5(123456789);
-
-
-            echo $result->rowCount();
             if ($result->rowCount() > 0) {
-
-                #echo "Autenticado com sucesso";
                 $data = $result->fetch(PDO::FETCH_OBJ);
 
                 session_start();
+                session_cache_expire(20);
+                session_cache_limiter('private');
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user_id'] =$data->id_administrador;
                 $_SESSION['user_name'] = $data->name;
@@ -102,13 +89,12 @@
     ?>
 </div>
 <div class="fixed-action-btn">
-    <a href="sign-up.php">
+    <a href="index.php">
         <button class="btn-floating btn-large grey darken-3">
             <i class="large material-icons">home</i>
         </button>
     </a>
 </div>
-
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>

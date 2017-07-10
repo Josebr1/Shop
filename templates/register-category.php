@@ -3,7 +3,7 @@ session_start();
 require '../connection.php';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -106,7 +106,7 @@ if (!isLoggedIn()) {
             $path_image = null;
 
             if ($_FILES['foto']['error'] == 0) {
-                $upload = new Upload($_FILES['foto'], 400, 400, "../uploads/");
+                $upload = new Upload($_FILES['foto'], 300, 300, "../uploads/");
                 $path_image = 'uploads/' . $upload->salvar();
             }
 

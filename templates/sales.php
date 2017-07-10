@@ -3,7 +3,7 @@ session_start();
 require '../connection.php';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Pedidos realizados</title>
     <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon"/>

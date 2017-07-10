@@ -3,7 +3,7 @@ session_start();
 require '../connection.php';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Cadastrar produto</title>
     <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon"/>
@@ -19,7 +19,7 @@ require '../connection.php';
 
 <body>
 <?php
-if(!isLoggedIn()){
+if (!isLoggedIn()) {
     header("Location:../index.php");#retorna para a tela main
 }
 ?>
@@ -40,7 +40,7 @@ if(!isLoggedIn()){
                         </button>
                         <ul class="right hide-on-med-and-down">
                             <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i
-                                        class="material-icons right">more_vert</i></a>
+                                            class="material-icons right">more_vert</i></a>
                         </ul>
                     </div>
                 </nav>
@@ -54,12 +54,11 @@ if(!isLoggedIn()){
                         $response = Unirest\Request::get('http://web-api.files-app.ga/public/category', $headers = array(), $parameters = null);
                         $json = json_decode($response->raw_body);
 
-                        foreach ($json as $e) {
-                            echo "
-                            <option value='$e->id_category'>$e->name</option>
-                        
-                        ";
-                        }
+                            foreach ($json as $e) {
+                                echo "
+                                    <option value='$e->id_category'>$e->name</option>
+                                ";
+                            }
                         ?>
                     </select>
             </form>
@@ -86,8 +85,9 @@ if(!isLoggedIn()){
                             ";
                 } else {
                     echo("<div class='row'>");
-                    foreach ($json as $e) {
-                        echo "
+
+                        foreach ($json as $e) {
+                            echo "
                              <div class='grid-example col s12 m4'>
                                 <div class='card medium'>
                                     <div class='card-image'>
@@ -106,7 +106,7 @@ if(!isLoggedIn()){
                                 </div>
                             </div>
                             ";
-                    }
+                        }
                     echo "</div>";
                 }
             }

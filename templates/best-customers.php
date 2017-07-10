@@ -3,7 +3,7 @@ session_start();
 require '../connection.php';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Os melhores clientes</title>
     <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon" />
@@ -49,7 +49,7 @@ if(!isLoggedIn()){
 
                             $json = json_decode($response->raw_body);
 
-                            if ($response->code == 404) {
+                            if ($response->code == 404 && $json == null) {
                                 echo "Não existem pedidos";
                             } else {
                                 echo "<div class='collection'>";

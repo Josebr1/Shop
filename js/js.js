@@ -2,19 +2,6 @@
  * Created by jose on 6/3/17.
  */
 
-$(document).ready(function () {
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal').modal();
-});
-
-
-$(document).ready(function () {
-    $('.tooltipped').tooltip({delay: 50});
-});
-
-function saveCatgory() {
-    $.post();
-}
 
 $(document).ready(function () {
     $('select').material_select();
@@ -97,38 +84,5 @@ $("#passwordRefresh").on("keyup", function (e) {
     }
 });
 
-$("#formValidate").validate({
-    rules: {
-        formemail: {
-            required: true,
-            email:true
-        }
-    },
-    //For custom messages
-    messages: {
-        uname:{
-            required: "Enter a username",
-            minlength: "Enter at least 5 characters"
-        },
-        curl: "Enter your website",
-    },
-    errorElement : 'div',
-    /*errorPlacement: function(error, element) {
-        var placement = $(element).data('error');
-        if (placement) {
-            $(placement).append(error)
-        } else {
-            error.insertAfter(element);
-        }
-    }*/
-});
-
-$(document).ready(function(){
-    $('#phone').mask('(00) 0000-00009');
-});
-
-$(document).ready(function(){
-    $('#phone').mask('(00) 0000-0000'); //Telefone
-});
 
 

@@ -4,7 +4,7 @@ require '../connection.php';
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Dashboard</title>
     <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon" />
@@ -71,14 +71,13 @@ if(!isLoggedIn()){
 
                                         $json = json_decode($response->raw_body);
 
-                                        if ($json == null) {
+                                        if ($response->code == 404 || $json == null) {
                                             echo "0";
                                         } else {
                                             foreach ($json as $e) {
                                                 echo $e->count;
                                             }
                                         }
-
                                         ?></h1>
                                 </div>
                             </div>
@@ -101,14 +100,13 @@ if(!isLoggedIn()){
 
                                         $json = json_decode($response->raw_body);
 
-                                        if ($json == null) {
+                                        if ($response->code == 404 || $json == null) {
                                             echo "0";
                                         } else {
                                             foreach ($json as $e) {
                                                 echo $e->count;
                                             }
                                         }
-
                                         ?></h1>
                                 </div>
                             </div>

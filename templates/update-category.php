@@ -3,7 +3,7 @@ session_start();
 require '../connection.php';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Atualizar Categoria</title>
     <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon" />
@@ -138,7 +138,7 @@ if(!isLoggedIn()){
                 if (($name != null && $description != null)) {
                     $path_image = null;
                     if ($_FILES['foto']['error'] == 0) {
-                        $upload = new Upload($_FILES['foto'], 400, 400, "../uploads/");
+                        $upload = new Upload($_FILES['foto'], 300, 300, "../uploads/");
                         $path_image = 'uploads/' . $upload->salvar();
                     }
 
@@ -146,7 +146,6 @@ if(!isLoggedIn()){
                     $data = array('name' => $name, 'description' => $description, 'icon' => $path_image);
 
                     $body = Unirest\Request\Body::json($data);
-                   // echo $body;
 
                     $response = Unirest\Request::post('http://web-api.files-app.ga/public/category/update/' . $id_category, null, $data);
 

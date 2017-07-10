@@ -3,7 +3,7 @@ session_start();
 require '../connection.php';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Atualizar Produto</title>
     <link rel="shortcut icon" href="../images/icon-panel-login.png" type="image/x-icon" />
@@ -93,7 +93,7 @@ if(!isLoggedIn()){
                                         </div>
                                         <div class='row'>
                                             <div class='input-field black-text col s12'>
-                                                <input id='price' name='price' type=number step=any class='validate' value='$e->price'>
+                                                <input id='price' name='price' type=text step=any class='validate' value='$e->price' data-mask='000.000.000.000.000.00' data-mask-reverse='true'>
                                                 <label for='price' data-error='' data-success=''>Preço do produto</label>
                                             </div>
                                         </div>
@@ -169,7 +169,7 @@ if (!empty($_POST)) {
         $path_image = null;
 
         if ($_FILES['foto']['error'] == 0) {
-            $upload = new Upload($_FILES['foto'], 400, 400, "../uploads/");
+            $upload = new Upload($_FILES['foto'], 300, 300, "../uploads/");
             $path_image = 'uploads/' . $upload->salvar();
         }
 
@@ -230,5 +230,6 @@ if (!empty($_POST)) {
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 <script type="text/javascript" src="../js/js.js"></script>
+<script type="text/javascript" src="../bower_components/jquery-mask-plugin/dist/jquery.mask.js"></script>
 </body>
 </html>

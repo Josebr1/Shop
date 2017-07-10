@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <title>Cadastramento</title>
     <link rel="shortcut icon" href="images/icon-panel-login.png" type="image/x-icon"/>
@@ -12,7 +12,6 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
 
 <body>
@@ -34,7 +33,7 @@
             </div>
 
             <div class="row">
-                <form class="s12 m12 l12" method="post" action="sign-up.php">
+                <form class="s12 m12 l12" method="post" action="sign-up.php" id="signUp">
                     <div class="row">
                         <div class="input-field black-text col s12">
                             <input id="name" type="text" name="name" class="validate" required>
@@ -49,11 +48,12 @@
                     </div>
                     <div class="row">
                         <div class="input-field black-text col s12">
-                            <input type="number" name="phone" id="phone" class="validate" required maxlength="11"
-                                   minlength="10"">
-                            <label for="phone" data-error="Tel: dd seguido do números" data-success="">Telefone</label>
+                            <input type="tel" name="phone" id="phone" class="validate"
+                                   title="Número Telefone Inválido"
+                                   pattern="[\(]\d{2}[\)] \d{4}[\-]\d{4}" data-mask="(00) 0000-0000"  required>
+                            <label for="phone" data-error="Número Telefone Inválido"
+                                   data-success="">Telefone</label>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="input-field black-text col s12">
@@ -128,8 +128,10 @@ if (!empty($_POST)) {
 </div>
 
 <!--Import jQuery before materialize.js-->
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="bower_components/formatter.js/dist/jquery.formatter.js"></script>
+<script type="text/javascript" src="bower_components/jquery-mask-plugin/dist/jquery.mask.js"></script>
 </body>
 </html>

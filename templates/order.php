@@ -19,7 +19,7 @@ require '../connection.php';
 
 <body class="grey lighten-2" style="min-width: 50%">
 <?php
-if(!isLoggedIn()){
+if (!isLoggedIn()) {
     header("Location:../index.php");#retorna para a tela main
 }
 ?>
@@ -45,12 +45,18 @@ if(!isLoggedIn()){
                         <div class="card white darken-1">
                             <div class="card-content white-text" style="width: 100%">
                     <span class="card-title black-text">
-                        <div class="row">
-                          <h4 class="center-align">Informações do pedido</h4>
-                        </div>
-                        <div class="row">
-                          <img width="100" src="../images/order-icon.png">
-                        </div>
+
+                        <table>
+                            <tr>
+                                <td>
+                                    <h4 class="center-align">Informações do pedido</h4>
+                                </td>
+                                <td>
+                                    <img width="100" src="../images/order-icon.png">
+                                </td>
+                            </tr>
+                        </table>
+
                     </span>
                                 <div class="row black-text">
                                     <div class="col s6">
@@ -64,7 +70,7 @@ if(!isLoggedIn()){
                                                 $response = Unirest\Request::get('http://web-api.files-app.ga/public/order/' . $id, $headers = array(), $parameters = null);
                                                 $json = json_decode($response->raw_body);
 
-                                                if ($json != null) {
+                                                if ($response->code != 404 && $json != null) {
                                                     foreach ($json as $e) {
                                                         echo "
                                                    <table>
@@ -88,6 +94,31 @@ if(!isLoggedIn()){
                                                       </tr>
                                                     </tbody>
                                                   </table>
+                                                  
+                                                  
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <h5>Informações do comprador</h5>
+                                                    </td>
+                                                    <td>
+                                                        <img width=\"100\" src=\"../images/icon-user.png\">
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>Nome do comprador</td>
+                                                    <td>$e->name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>E-Mail</td>
+                                                    <td>$e->email</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Telefone</td>
+                                                    <td>$e->phone</td>
+                                                </tr>
+                                            </table>
                                         
                                              ";
                                                         echo "<input type=hidden name='id' value='$e->id_order'> ";
@@ -95,8 +126,9 @@ if(!isLoggedIn()){
                                                 }
                                             }
                                             ?>
+
                                             <label>Atualizar status do pedido</label>
-                                            <select class="browser-default black-text" name="status" required>
+                                            <select class="black-text" name="status" required>
                                                 <option value="" disabled selected>Escolha um status</option>
                                                 <option value="Pedido saiu para entrega">Pedido saiu para entrega
                                                 </option>
@@ -157,7 +189,6 @@ if(!isLoggedIn()){
                 </div>
             </form>
 
-
             <?php
             use Unirest\Request;
 
@@ -178,7 +209,7 @@ if(!isLoggedIn()){
                                 alert('$response->body');
                                 window.location='dashboard.php';
                                </script>";
-                    }else{
+                    } else {
                         echo "<script>
                                 alert('Erro ao atualizar status do pedido');
                               </script>";
